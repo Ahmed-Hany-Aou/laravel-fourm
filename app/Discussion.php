@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Discussion extends Model
 {
-    // Allow mass assignment on these fields
+    // Allow mass assignment on these fields////not same as instructor code
     protected $fillable = [
         'title',
         'content',
@@ -24,5 +24,14 @@ class Discussion extends Model
     public function channel()
     {
         return $this->belongsTo(Channel::class);
+    }
+    public function replies()
+    {
+      return $this->hasMany(Reply::class);
+    }
+
+    public function getRouteKeyName()
+    {
+      return 'slug';
     }
 }
