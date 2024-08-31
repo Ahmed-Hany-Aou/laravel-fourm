@@ -1,30 +1,14 @@
 <?php
-namespace LaravelForum;
 
-use Illuminate\Database\Eloquent\Model;
+namespace LaravelForum;
 
 class Discussion extends Model
 {
-    // Allow mass assignment on these fields////not same as instructor code
-    protected $fillable = [
-        'title',
-        'content',
-        'user_id',
-        'channel_id',
-        'slug',
-    ];
-
-    // Relationship to the User model
     public function author()
     {
-        return $this->belongsTo(User::class, 'user_id');
+      return $this->belongsTo(User::class, 'user_id');
     }
 
-    // Relationship to the Channel model
-    public function channel()
-    {
-        return $this->belongsTo(Channel::class);
-    }
     public function replies()
     {
       return $this->hasMany(Reply::class);
@@ -33,5 +17,17 @@ class Discussion extends Model
     public function getRouteKeyName()
     {
       return 'slug';
+    }
+
+    public function bestReply()
+    {
+      return $this->belongsTo(Reply::class, 'reply_id');
+    }
+
+    public function markAsBestReply(Reply $reply)
+    {
+      $this->update([
+        'reply_id' => $reply->id
+      ]);
     }
 }
