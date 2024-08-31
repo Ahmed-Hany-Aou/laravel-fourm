@@ -1,4 +1,5 @@
 <?php
+use LaravelForum\Http\Controllers\DiscussionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('discussion', 'DiscussionsController');
+
+Route::resource('discussions', 'DiscussionsController');
+
+
+//Route::get('discussions/{slug}', [DiscussionsController::class, 'show'])->name('discussions.show');
+
+

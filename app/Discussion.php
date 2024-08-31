@@ -1,5 +1,4 @@
 <?php
-
 namespace LaravelForum;
 
 use Illuminate\Database\Eloquent\Model;
@@ -15,5 +14,15 @@ class Discussion extends Model
         'slug',
     ];
 
-    // Add any relationships or additional methods here...
+    // Relationship to the User model
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Relationship to the Channel model
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class);
+    }
 }
