@@ -8,7 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use LaravelForum\Discussion;
 
-class NewReplyAdded extends Notification
+class NewReplyAdded extends Notification implements ShouldQueue
+
 {
     use Queueable;
 
@@ -37,8 +38,8 @@ class NewReplyAdded extends Notification
      */
     public function via($notifiable)
     {
-       // return ['mail', 'database'];I STOPED THE MAIL NOTIFICATION BECAUSE IT IS NOT WORKING DUE TO SAME ERROR WE FACED IN PREVIOUS CMS PROJECT
-       return ['database'];
+        return ['mail', 'database'];//I STOPED THE MAIL NOTIFICATION BECAUSE IT IS NOT WORKING DUE TO SAME ERROR WE FACED IN PREVIOUS CMS PROJECT
+       // return ['database'];
     }
 
     /**

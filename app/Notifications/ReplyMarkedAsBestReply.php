@@ -8,7 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use LaravelForum\Discussion;
 
-class ReplyMarkedAsBestReply extends Notification
+class ReplyMarkedAsBestReply extends Notification implements ShouldQueue
+
 {
     use Queueable;
 
@@ -36,8 +37,8 @@ class ReplyMarkedAsBestReply extends Notification
      */
     public function via($notifiable)
     {
-       // return ['mail', 'database']; // I STOPED THE MAIL NOTIFICATION BECAUSE IT IS NOT WORKING DUE TO SAME ERROR WE FACED IN PREVIOUS CMS PROJECT
-       return ['database'];
+        return ['mail', 'database']; // I STOPED THE MAIL NOTIFICATION BECAUSE IT IS NOT WORKING DUE TO SAME ERROR WE FACED IN PREVIOUS CMS PROJECT
+      // return ['database'];
     }
 
     /**
