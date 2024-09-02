@@ -14,6 +14,7 @@ class DiscussionsController extends Controller
     {
         $this->middleware('auth')->only(['create', 'store']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +23,7 @@ class DiscussionsController extends Controller
     public function index()
     {
         return view('discussions.index', [
-          'discussions' => Discussion::paginate(5)
+          'discussions' => Discussion::filterByChannels()->paginate(3)
         ]);
     }
 
@@ -62,15 +63,12 @@ class DiscussionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)/////not the same as the course 
-{
-    $discussion = Discussion::where('slug', $slug)->firstOrFail();
-    
-    return view('discussions.show', [
-        'discussion' => $discussion
-    ]);
-}
-
+    public function show(Discussion $discussion)
+    {
+        return view('discussions.show', [
+          'discussion' => $discussion
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -105,6 +103,12 @@ class DiscussionsController extends Controller
     {
         //
     }
+
+    /**
+     * Mark a reply as best reply for a discussion
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function reply(Discussion $discussion, Reply $reply)
     {
       $discussion->markAsBestReply($reply);
@@ -113,5 +117,4 @@ class DiscussionsController extends Controller
 
       return redirect()->back();
     }
-
 }
