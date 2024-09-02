@@ -8,12 +8,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use LaravelForum\Discussion;
 
-class NewReplyAdded extends Notification
+class ReplyMarkedAsBestReply extends Notification
 {
     use Queueable;
 
     /**
-     * The reply discussion
      * 
      * @var Discussion
      */
@@ -37,7 +36,7 @@ class NewReplyAdded extends Notification
      */
     public function via($notifiable)
     {
-       // return ['mail', 'database'];I STOPED THE MAIL NOTIFICATION BECAUSE IT IS NOT WORKING DUE TO SAME ERROR WE FACED IN PREVIOUS CMS PROJECT
+       // return ['mail', 'database']; // I STOPED THE MAIL NOTIFICATION BECAUSE IT IS NOT WORKING DUE TO SAME ERROR WE FACED IN PREVIOUS CMS PROJECT
        return ['database'];
     }
 
@@ -50,7 +49,7 @@ class NewReplyAdded extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('A new reply was added to your discussion.')
+                    ->line('Your reply was marked as best reply.')
                     ->action('View Discussion', route('discussions.show', $this->discussion->slug))
                     ->line('Thank you for using our application!');
     }
@@ -64,7 +63,7 @@ class NewReplyAdded extends Notification
     public function toArray($notifiable)
     {
         return [
-          'discussion' => $this->discussion
+            'discussion' => $this->discussion
         ];
     }
 }

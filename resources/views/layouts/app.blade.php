@@ -40,7 +40,7 @@
                     <ul class="navbar-nav mr-auto">
                       @auth
                         <li class="nav-item">
-                          <a href="" class="nav-link">
+                          <a href="{{ route('users.notifications') }}" class="nav-link">
                               <span class="badge badge-info">
                                   {{ auth()->user()->unreadNotifications->count() }}
                                   Unread notifications
@@ -48,6 +48,11 @@
                           </a>
                         </li>
                       @endauth
+                      <li class="nav-item">
+                        <a href="{{ route('discussions.index') }}" class="nav-link">
+                          Discussions
+                        </a>
+                      </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
